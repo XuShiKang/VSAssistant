@@ -12,14 +12,24 @@
 
 using namespace std;
 
+
 class Args {
     std::map<std::string, std::string> arguments;
     string sourceFolder, targetFolder;
 public:
     Args(int argc, char *args[]);
+
     void show();
-    void help();
-    void showUsage();
+
+    static void help();
+
+    static void showUsage();
+
+    void checkAndGetArgument();
+
+    string getSourceFolder() { return this->sourceFolder; }
+
+    string getTargetFolder() { return this->targetFolder; }
 };
 
 
