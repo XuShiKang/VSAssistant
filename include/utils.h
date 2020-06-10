@@ -7,6 +7,9 @@
 
 #include <string>
 #include <vector>
+#include <io.h>
+
+#include "File.h"
 
 using namespace std;
 
@@ -21,18 +24,12 @@ public:
     static string formatFolder(string folder);
     static void getPathFiles(vector<string> &files, const string& folder, const string& filter, char type);
     static string join(std::initializer_list<string> values);
+    static string getAbsolutePath(const string& folder, const string& name);
     static bool hasFolder(const string& folder);
+    static bool hasMainFun(const string& path);
+    static string & replace(string& s, const string& replaced, const string& to_be_replace);
 };
 
-class File {
-protected:
-    string name;
-    string folder;
-public:
-    File(const string& _name, const string& _folder);
-    string getName();
-    string getAbsolutePath();
-};
 
 
 #endif //VSASSISTANT_UTILS_H

@@ -4,9 +4,9 @@
 
 #include "Project.h"
 
-Project::Project(string _name, string _folder, ProjectType _type):
+Project::Project(string _name, string _folder):
 File(_name, _folder){
-    type = _type;
+
 }
 
 void Project::searchFiles() {

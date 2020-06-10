@@ -11,18 +11,21 @@
 
 using namespace std;
 
-
-class CppFile: public File{
-    bool isModified;
+class File {
+protected:
+    string name;
+    string folder;
 public:
-    CppFile(const string& _name, const string& _folder);
-    bool modify();
+    File(const string& _name, const string& _folder);
+    string getName();
+    string getAbsolutePath();
 };
 
-class CFile: public File{
+
+class SourceFile: public File{
     bool isModified;
 public:
-    CFile(const string& _name, const string& _folder);
+    SourceFile(const string& _name, const string& _folder);
     bool modify();
 };
 

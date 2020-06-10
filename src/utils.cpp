@@ -2,8 +2,8 @@
 // Created by Shikang Xu on 2020/6/5.
 //
 
-#include <io.h>
 #include <iostream>
+#include <fstream>
 
 #include "utils.h"
 
@@ -38,7 +38,7 @@ void utils::getPathFiles(vector<string> &files, const string &folder, const stri
     }
     do {
         if ((fileInfo.attrib & type) && fileInfo.name[0] != '.') {
-            files.push_back(join({formatFolder(folder), fileInfo.name}));
+            files.emplace_back(fileInfo.name);
         }
     } while (_findnext(handle, &fileInfo) == 0);
     _findclose(handle);
@@ -60,13 +60,27 @@ bool utils::hasFolder(const string &folder) {
     return handle > 0;
 }
 
-File::File(const string& _name, const string& _folder):
-        name(_name), folder(_folder) {}
-
-string File::getName() {
-    return name;
+bool utils::hasMainFun(const string& path) {
+    ifstream file(path);
+    string line;
+    while (getline(file, line)){
+        if(line.find("main") != std::string::npos){
+            return true;
+        }
+    }
+    return false;
 }
 
-string File::getAbsolutePath() {
+string & utils::replace(string &s, const string& replaced, const string& to_be_replace) {
+    auto found = s.find(replaced);
+    while (found != string::npos){
+        s.replace(found, to_be_replace.length(), to_be_replace);
+        found = s.find(replaced);
+    }
+    return s;
+}
+
+string utils::getAbsolutePath(const string& folder, const string& name) {
     return utils::formatFolder(folder) + name;
 }
+

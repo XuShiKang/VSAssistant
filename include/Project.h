@@ -14,12 +14,10 @@
 using namespace std;
 
 class Project: public File {
-    ProjectType type;
-    vector<CppFile> cppFiles;
-    vector<CFile> cFiles;
+    vector<SourceFile> sourceFiles;
     vector<HeaderFile> headerFiles;
 public:
-    Project(string _name, string _folder, ProjectType _type);
+    Project(string _name, string _folder);
     void searchFiles();
     void modifySourceFiles();
     void generateConfigFiles();
