@@ -85,7 +85,7 @@ string utils::getAbsolutePath(const string& folder, const string& name) {
 }
 
 void utils::copyDir(const string &sourceDir, const string &targetDir) {
-    string cmd = "xcopy " + sourceDir.substr(0, sourceDir.size() - 1) + " " + targetDir + " /e /s /y";
+    string cmd = "xcopy " + sourceDir.substr(0, sourceDir.size() - 1) + " " + targetDir + " /c/e/r/y";
     cout<<"Start copy dictionary!"<<endl;
     if(system(cmd.c_str()) != 0){
         cout<<cmd<<endl;
@@ -109,7 +109,7 @@ void utils::makeDir(const string &dir) {
 }
 
 void utils::copyFile(const string &sourceFile, const string &targetDir) {
-    string cmd = "copy " + replace(sourceFile, "/", "\\") + " " + replace(targetDir, "/", "\\");
+    string cmd = "xcopy " + replace(sourceFile, "/", "\\") + " " + replace(targetDir, "/", "\\") + " /c/e/r/y";
     if(system(cmd.c_str()) != 0){
         cout<<cmd<<endl;
         cerr<<"File copy error!"<<endl;
