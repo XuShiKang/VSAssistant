@@ -27,6 +27,10 @@ Args::Args(int argc, char *args[]) {
         }
     }
     this->checkAndGetArgument();
+    if(!this->targetFolder.empty()){
+        utils::makeDir(this->targetFolder + "Solutions");
+        this->targetFolder += "Solutions\\";
+    }
 }
 
 void Args::help() {
@@ -35,7 +39,7 @@ void Args::help() {
          << "\t" << std::left << setw(BEFORE_LINE_WIDTH) << "--source"
          << "\tThe folder where you want to build Visual Studio Solution" << endl
          << "\t" << std::left << setw(BEFORE_LINE_WIDTH) << "--target"
-         << "\tThe folder where you want to put the Visual Studio Solution, Default is modified in place" << endl;
+         << "\tThe folder where you want to put the Visual Studio Solution, Default is modified inplace" << endl;
     exit(-1);
 }
 
@@ -59,9 +63,17 @@ void Args::checkAndGetArgument() {
         this->help();
     } else {
         this->sourceFolder = utils::formatFolder(source_flag->second);
+        if(!utils::hasFolder(this->sourceFolder)){
+            cerr << "No such dictionary "<< this->sourceFolder << endl;
+            exit(-1);
+        }
     }
     if (target_flag != arguments.end()) {
         this->targetFolder = utils::formatFolder(target_flag->second);
+        if(!utils::hasFolder(this->targetFolder)){
+            cerr << "No such dictionary "<< this->targetFolder << endl;
+            exit(-1);
+        }
     }
 }
 

@@ -26,14 +26,20 @@ class SourceFile: public File{
     bool isModified;
 public:
     SourceFile(const string& _name, const string& _folder);
-    bool modify();
+
+    void modify();
+
+    static void modifyByRules(ofstream &out, const string &l);
 };
 
 class HeaderFile: public File{
     bool isModified;
 public:
     HeaderFile(const string& _name, const string& _folder);
-    bool modify();
+
+    void modify();
+
+    static void modifyByRules(ofstream &out, const string &l);
 };
 
 #endif //VSASSISTANT_FILE_H

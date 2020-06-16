@@ -16,11 +16,14 @@ using namespace std;
 class Project: public File {
     vector<SourceFile> sourceFiles;
     vector<HeaderFile> headerFiles;
+    string projectName, projectPath;
 public:
-    Project(string _name, string _folder);
+    Project(const string& _name, const string& _folder);
     void searchFiles();
     void modifySourceFiles();
-    void generateConfigFiles();
+    void generateAllConfigFiles();
+    void generateConfigFile(const string & fileEnd);
+    string getProjectName();
 };
 
 

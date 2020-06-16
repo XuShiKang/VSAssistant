@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 #include "utils.h"
 
@@ -31,8 +32,6 @@ void utils::getPathFiles(vector<string> &files, const string &folder, const stri
     string filterPath = formatFolder(folder) + filter;
     long handle = _findfirst(filterPath.c_str(), &fileInfo);
     if (handle < 0) {
-//        cerr << "PathError: In Path: " << folder << endl;
-//        cerr << "No Such File like " << filter << endl;
         _findclose(handle);
         return;
     }
@@ -71,16 +70,51 @@ bool utils::hasMainFun(const string& path) {
     return false;
 }
 
-string & utils::replace(string &s, const string& replaced, const string& to_be_replace) {
-    auto found = s.find(replaced);
+string utils::replace(const string &s, const string& oldStr, const string& newStr) {
+    string res = s;
+    auto found = res.find(oldStr);
     while (found != string::npos){
-        s.replace(found, to_be_replace.length(), to_be_replace);
-        found = s.find(replaced);
+        res.replace(found, oldStr.length(), newStr);
+        found = res.find(oldStr);
     }
-    return s;
+    return res;
 }
 
 string utils::getAbsolutePath(const string& folder, const string& name) {
     return utils::formatFolder(folder) + name;
+}
+
+void utils::copyDir(const string &sourceDir, const string &targetDir) {
+    string cmd = "xcopy " + sourceDir.substr(0, sourceDir.size() - 1) + " " + targetDir + " /e /s /y";
+    cout<<"Start copy dictionary!"<<endl;
+    if(system(cmd.c_str()) != 0){
+        cout<<cmd<<endl;
+        cerr<<"Dictionary copy error!"<<endl;
+        exit(-1);
+    }
+    cout<<"Copy dictionary successfully!"<<endl;
+}
+
+void utils::makeDir(const string &dir) {
+    string cmd = "mkdir " + dir;
+    if(hasFolder(dir)){
+        return;
+    }
+    if(system(cmd.c_str()) != 0){
+        cout<<cmd<<endl;
+        cerr<<"Dictionary copy error!"<<endl;
+        exit(-1);
+    }
+    cout<<"Make dictionary successfully!"<<endl;
+}
+
+void utils::copyFile(const string &sourceFile, const string &targetDir) {
+    string cmd = "copy " + replace(sourceFile, "/", "\\") + " " + replace(targetDir, "/", "\\");
+    if(system(cmd.c_str()) != 0){
+        cout<<cmd<<endl;
+        cerr<<"File copy error!"<<endl;
+        exit(-1);
+    }
+    cout<<"Copy File successfully!"<<endl;
 }
 

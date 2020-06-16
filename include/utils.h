@@ -11,12 +11,13 @@
 
 #include "File.h"
 
-using namespace std;
+#ifdef PATH
+    #define PROJECT_DIR PATH
+#else
+    #define PROJECT_DIR ""
+#endif
 
-enum ProjectType{
-    C_PROJECT,
-    CPP_PROJECT
-};
+using namespace std;
 
 class utils {
 public:
@@ -27,7 +28,10 @@ public:
     static string getAbsolutePath(const string& folder, const string& name);
     static bool hasFolder(const string& folder);
     static bool hasMainFun(const string& path);
-    static string & replace(string& s, const string& replaced, const string& to_be_replace);
+    static string replace(const string& s, const string& oldStr, const string& newStr);
+    static void copyDir(const string & sourceDir, const string & targetDir);
+    static void copyFile(const string & sourceFile, const string & targetDir);
+    static void makeDir(const string & dir);
 };
 
 

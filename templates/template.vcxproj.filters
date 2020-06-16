@@ -15,16 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="demo1.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Complex.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClCompile Include="{cppName}"><Filter>源文件</Filter></ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Complex.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <ClInclude Include="{headerName}"><Filter>头文件</Filter></ClInclude>
   </ItemGroup>
 </Project>
