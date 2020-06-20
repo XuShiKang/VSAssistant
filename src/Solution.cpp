@@ -8,6 +8,11 @@
 
 using namespace std;
 
+/*
+ * 构造函数，查找文件夹下的项目
+ * @_name:   解决方案名字
+ * @_folder: 解决方案文件夹
+ */
 Solution::Solution(const string &_name, const string &_folder) : File(_name, _folder) {
     vector<string> files;
     utils::getPathFiles(files, getAbsolutePath(), "*.c*", _A_ARCH);
@@ -20,6 +25,9 @@ Solution::Solution(const string &_name, const string &_folder) : File(_name, _fo
     }
 }
 
+/*
+ * 生成解决方案配置文件
+ */
 void Solution::generateSolution() {
     // todo: 生成sln文件
     ifstream in(PROJECT_DIR"/templates/template.sln");

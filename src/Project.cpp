@@ -6,6 +6,11 @@
 
 #include "Project.h"
 
+/*
+ * 构造函数，生成项目结构
+ * @_name:   main函数所在文件名
+ * @_folder: 项目所在文件夹
+ */
 Project::Project(const string &_name, const string &_folder) :
         File(_name, _folder) {
     this->projectName = _name.substr(0, _name.find('.'));
@@ -14,8 +19,10 @@ Project::Project(const string &_name, const string &_folder) :
     this->searchFiles();
 }
 
+/*
+ * 查找目录下的cpp/c/h文件
+ */
 void Project::searchFiles() {
-    // todo: 查找目录下的cpp/c/h文件
     ifstream in(this->getAbsolutePath());
     string line, sourceName;
     while (getline(in, line)){
@@ -28,8 +35,10 @@ void Project::searchFiles() {
     }
 }
 
+/*
+ * 修改项目源文件, 先读出再重写
+ */
 void Project::modifySourceFiles() {
-    // todo: 修改项目源文件, 先读出再重写
     ifstream in;
     ofstream out;
     vector<string> lines;
@@ -42,17 +51,19 @@ void Project::modifySourceFiles() {
     }
 }
 
+/*
+ * 生成项目配置文件
+ */
 void Project::generateAllConfigFiles() {
-    // todo: 生成项目配置文件
     this->generateConfigFile(".vcxproj");
     this->generateConfigFile(".vcxproj.filters");
     this->generateConfigFile(".vcxproj.user");
 }
 
-string Project::getProjectName() {
-    return this->projectName;
-}
-
+/*
+ * 以后缀生成单个配置文件
+ * @fileEnd: 配置文件后缀
+ */
 void Project::generateConfigFile(const string &fileEnd) {
     ifstream in(PROJECT_DIR"/templates/template" + fileEnd);
     if (!in) {

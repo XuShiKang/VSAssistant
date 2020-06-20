@@ -13,10 +13,17 @@
 
 using namespace std;
 
-class Solution: public File{
+/*
+ * 解决方案类，描述了一个解决方案的组成
+ */
+class Solution : public File {
+    // 组成解决方案的项目
     vector<Project> projects;
 public:
-    Solution(const string& _name, const string &_folder);
+    // 构造函数，查找文件夹下的项目
+    Solution(const string &_name, const string &_folder);
+
+    // 生成解决方案配置文件
     void generateSolution();
 };
 

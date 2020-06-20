@@ -20,6 +20,7 @@ int main(int argc, char *args[]) {
     for (const auto &folder : folders) {
         Solution solution(folder, wordDir);
         solution.generateSolution();
+        // 生成.vs的项目运行配置文件
         optionsDir = wordDir + ".vs\\" + solution.getName() + "\\v16";
         utils::makeDir(optionsDir);
         utils::copyFile(PROJECT_DIR"/templates/.suo", optionsDir);

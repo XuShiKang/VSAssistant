@@ -11,34 +11,49 @@
 
 using namespace std;
 
+/*
+ * 文件基类，用于继承
+ */
 class File {
 protected:
+    // 文件名
     string name;
+    // 文件所在文件夹
     string folder;
 public:
-    File(const string& _name, const string& _folder);
-    string getName();
+    File(const string &_name, const string &_folder);
+
+    string getName(){ return name;}
+
+    // 获取文件绝对路径
     string getAbsolutePath();
 };
 
-
-class SourceFile: public File{
-    bool isModified;
+/*
+ * 源文件类，描述.c/.cpp文件
+ */
+class SourceFile : public File {
 public:
-    SourceFile(const string& _name, const string& _folder);
+    SourceFile(const string &_name, const string &_folder);
 
+    // 对不支持VS/DevC++的源代码文件中的语句进行修改
     void modify();
 
+    // 通过预先定义的规则修改文件
     static void modifyByRules(ofstream &out, const string &l);
 };
 
-class HeaderFile: public File{
-    bool isModified;
+/*
+ * 头文件类
+ */
+class HeaderFile : public File {
 public:
-    HeaderFile(const string& _name, const string& _folder);
+    HeaderFile(const string &_name, const string &_folder);
 
+    // 对不支持VS/DevC++的源代码文件中的语句进行修改
     void modify();
 
+    // 通过预先定义的规则修改文件
     static void modifyByRules(ofstream &out, const string &l);
 };
 

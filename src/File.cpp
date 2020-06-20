@@ -5,14 +5,20 @@
 #include <fstream>
 
 #include "File.h"
-
 #include "utils.h"
 
+/*
+ * 构造函数
+ * @_name:   文件名
+ * @_folder: 文件所在文件夹
+ */
 SourceFile::SourceFile(const string &_name, const string &_folder) :
-        File(_name, _folder), isModified(false) {}
+        File(_name, _folder) {}
 
+/*
+ * 对不支持VS/DevC++的源代码文件中的语句进行修改
+ */
 void SourceFile::modify() {
-    // todo: 对不支持VS/DevC++的源代码文件中的语句进行修改
     ifstream in;
     ofstream out;
     vector<string> lines;
@@ -27,11 +33,18 @@ void SourceFile::modify() {
     }
 }
 
+/*
+ * 构造函数
+ * @_name:   文件名
+ * @_folder: 文件所在文件夹
+ */
 HeaderFile::HeaderFile(const string &_name, const string &_folder) :
-        File(_name, _folder), isModified(false) {}
+        File(_name, _folder) {}
 
+/*
+ * 对不支持VS/DevC++的源代码文件中的语句进行修改
+ */
 void HeaderFile::modify() {
-    // todo: 对不支持VS/DevC++的源代码文件中的语句进行修改
     ifstream in;
     ofstream out;
     vector<string> lines;
@@ -46,6 +59,11 @@ void HeaderFile::modify() {
     }
 }
 
+/*
+ * 通过预先定义的规则修改文件
+ * @out: 输出文件流
+ * @l:   需要修改的源字符串
+ */
 void HeaderFile::modifyByRules(ofstream &out, const string &l) {
     if (l.find("<iomanip.h>") != string::npos) {
         out << utils::replace(l, "<iomanip.h>", "<iomanip>") << endl;
@@ -60,6 +78,11 @@ void HeaderFile::modifyByRules(ofstream &out, const string &l) {
     }
 }
 
+/*
+ * 通过预先定义的规则修改文件
+ * @out: 输出文件流
+ * @l:   需要修改的源字符串
+ */
 void SourceFile::modifyByRules(ofstream &out, const string &l) {
     if (l.find("<iostream.h>") != string::npos) {
         out << utils::replace(l, "<iostream.h>", "<iostream>") << endl;
@@ -79,13 +102,17 @@ void SourceFile::modifyByRules(ofstream &out, const string &l) {
     }
 }
 
+/*
+ * 构造函数
+ * @_name: 文件名
+ * @_folder: 文件所在文件夹
+ */
 File::File(const string &_name, const string &_folder) :
         name(_name), folder(_folder) {}
 
-string File::getName() {
-    return name;
-}
-
+/*
+ * 获取文件绝对路径
+ */
 string File::getAbsolutePath() {
     return utils::formatFolder(folder) + name;
 }

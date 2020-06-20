@@ -8,6 +8,11 @@ using namespace std;
 
 const int BEFORE_LINE_WIDTH = 8;
 
+/*
+ * 构造函数，接收并解析main函数的命令行参数
+ * @argc: 参数数量
+ * @args: 参数值
+ */
 Args::Args(int argc, char *args[]) {
     if (argc < 2) {
         Args::help();
@@ -27,12 +32,15 @@ Args::Args(int argc, char *args[]) {
         }
     }
     this->checkAndGetArgument();
-    if(!this->targetFolder.empty()){
+    if (!this->targetFolder.empty()) {
         utils::makeDir(this->targetFolder + "Solutions");
         this->targetFolder += "Solutions\\";
     }
 }
 
+/*
+ * 展示帮助信息并退出程序
+ */
 void Args::help() {
     showUsage();
     cout << "\t" << std::left << setw(BEFORE_LINE_WIDTH) << "--help" << "\tShow help messages" << endl
@@ -43,18 +51,27 @@ void Args::help() {
     exit(-1);
 }
 
+/*
+ * 展示解析完成的命令行参数
+ */
 void Args::show() {
     for (const auto &item: arguments) {
         cout << "\t" << setw(BEFORE_LINE_WIDTH) << item.first << "\t" << item.second << endl;
     }
 }
 
+/*
+ * 展示程序用法
+ */
 void Args::showUsage() {
     cout << "\t" << std::left << setw(BEFORE_LINE_WIDTH) << "Usage:"
-         << "VSAssistant [--help] [--source <source folder>]" << endl
+         << "VSAssistant.exe [--help] [--source <source folder>]" << endl
          << "\t" << std::left << setw(BEFORE_LINE_WIDTH) << " " << "[--target <target folder>]" << endl;
 }
 
+/*
+ * 检查命令行参数
+ */
 void Args::checkAndGetArgument() {
     auto source_flag = arguments.find("--source");
     auto target_flag = arguments.find("--target");
@@ -63,15 +80,15 @@ void Args::checkAndGetArgument() {
         this->help();
     } else {
         this->sourceFolder = utils::formatFolder(source_flag->second);
-        if(!utils::hasFolder(this->sourceFolder)){
-            cerr << "No such dictionary "<< this->sourceFolder << endl;
+        if (!utils::hasFolder(this->sourceFolder)) {
+            cerr << "No such dictionary " << this->sourceFolder << endl;
             exit(-1);
         }
     }
     if (target_flag != arguments.end()) {
         this->targetFolder = utils::formatFolder(target_flag->second);
-        if(!utils::hasFolder(this->targetFolder)){
-            cerr << "No such dictionary "<< this->targetFolder << endl;
+        if (!utils::hasFolder(this->targetFolder)) {
+            cerr << "No such dictionary " << this->targetFolder << endl;
             exit(-1);
         }
     }
